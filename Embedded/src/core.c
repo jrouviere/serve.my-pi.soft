@@ -33,15 +33,11 @@
 
 #include "out_ctrl.h"
 #include "api_ctrl.h"
-#include "user_flash.h"
-
-#include "appli/appli_ctrl.h"
 
 #include "io/rx_input.h"
 #include "io/servo_out_bb.h"
 
 #include "controller/frame_ctrl.h"
-#include "controller/sequence.h"
 
 #include "calibration.h"
 
@@ -197,11 +193,6 @@ void core_change_mode(MODE_T m)
 
 void core_main_task(void *arg)
 {
-    /* OK, for the moment this init code is placed here because
-    the flash driver requires the OS to be running.*/
-    user_flash_init();
-    load_sys_conf();
-
     const portTickType xDelay = TASK_DELAY_MS(CORE_PERIOD_MS);
     portTickType xLastWakeTime = xTaskGetTickCount();
 
@@ -358,7 +349,6 @@ void core_main_init()
 
     core_calib_init();
     api_ctrl_init();
-    appli_init();
 
     //Create core task
     xTaskCreate(core_main_task,

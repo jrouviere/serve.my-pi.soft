@@ -21,7 +21,6 @@
 #include "calibration.h"
 #include "pc_comm.h"
 #include "core.h"
-#include "user_flash.h"
 
 #include "FreeRTOS.h"
 #include "semphr.h"
@@ -177,62 +176,12 @@ static void set_output_active_bm(pccomm_packet_t *packet)
 
 
 
-static void flash_load_sys_conf(system_conf_t *sys_conf, uint8_t slot_id)
-{
-    uint32_t compat;
-
-    if(flash_check_slot_type(slot_id, SLOT_IO_SETTINGS) != 0)
-    {
-        TRACE("Invalid slot type\n");
-        return;
-    }
-
-    flash_load_slot(slot_id, sizeof(slot_header_t), sizeof(uint32_t),
-            &compat);
-
-    if(compat != CURRENT_COMPATIBILITY_MAGIC)
-    {
-        TRACE("Incompatible conf in slot, skipping...\n");
-        return;
-    }
-
-    if(xSemaphoreTake(sysconf_mutex, portMAX_DELAY))
-    {
-        flash_load_slot(slot_id, sizeof(slot_header_t), sizeof(system_conf_t),
-                sys_conf);
-        xSemaphoreGive(sysconf_mutex);
-    }
-}
-
-
-static void flash_save_sys_conf(const system_conf_t *sys_conf, uint8_t slot_id)
-{
-    if(xSemaphoreTake(sysconf_mutex, portMAX_DELAY))
-    {
-        flash_erase_slot(slot_id);
-        flash_init_slot(slot_id, SLOT_IO_SETTINGS, "System settings", sizeof(system_conf_t));
-        flash_store_slot(slot_id, sizeof(slot_header_t), sizeof(system_conf_t), sys_conf);
-        xSemaphoreGive(sysconf_mutex);
-    }
-}
-
-static void save_sys_conf(pccomm_packet_t *packet)
-{
-    uint8_t slot_id = packet->header.index;
-    flash_save_sys_conf(&sys_conf, slot_id);
-}
-
-
-static void req_load_sys_conf(pccomm_packet_t *packet)
-{
-    load_sys_conf();
-}
-
-
 static const pc_comm_rx_callback sys_conf_callbacks[] =
 {
+	/*
     [SAVE_SYS_CONF] = save_sys_conf,
     [LOAD_SYS_CONF] = req_load_sys_conf,
+    */
 
     [SET_INPUT_MAPPING] = set_input_map,
     [REQ_INPUT_MAPPING] = req_input_map,
@@ -329,12 +278,6 @@ void init_sys_conf()
     }
 
     pc_comm_register_module_callback(PCCOM_SYS_CONF, comm_sys_conf_callbacks);
-}
-
-
-void load_sys_conf()
-{
-    flash_load_sys_conf(&sys_conf, DEFAULT_CONF_SLOT);
 }
 
 

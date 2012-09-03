@@ -37,11 +37,7 @@ asf-2.0.0/interrupt/exception.o
 
 OBJS += \
 controller/api_ctrl.o \
-controller/frame_ctrl.o \
-controller/sequence.o 
-
-OBJS += \
-appli/hexapod_appli.o
+controller/frame_ctrl.o
 
 OBJS += \
 io/rx_input.o \
@@ -51,17 +47,14 @@ OBJS += \
 calibration.o \
 core.o \
 exception_handler.o \
-flash_spi.o \
 main.o \
 out_ctrl.o \
 pc_comm.o \
 pc_comm_usb.o \
 rc_utils.o \
-spi_driver.o \
 sys_conf.o \
 system.o \
-trace.o \
-user_flash.o 
+trace.o
 
 OBJS += \
 openscb_advanced.o \

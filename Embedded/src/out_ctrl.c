@@ -20,7 +20,6 @@
 
 #include "core.h"
 #include "api_ctrl.h"
-#include "appli/appli_ctrl.h"
 
 #define SPEED_COEF  8
 
@@ -67,10 +66,7 @@ void out_ctrl_get_value(const system_conf_t *sys_conf, const core_input_t *input
         tmp[i].active = false;
     }
 
-    /* Appli has priority over API, that's why it is called last,
-     * there it can overwrite values from API*/
     api_ctrl_update(tmp);
-    appli_update(inputs, tmp);
 
     /* Update core outputs, don't modify value if we don't need to,
      * that way we can remember last servo position to apply

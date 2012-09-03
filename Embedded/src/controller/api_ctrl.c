@@ -25,7 +25,6 @@
 #include "api_ctrl.h"
 
 #include "frame_ctrl.h"
-#include "sequence.h"
 
 #include "rc_utils.h"
 #include "core.h"
@@ -107,7 +106,6 @@ void api_ctrl_init()
     }
 
     frame_ctrl_api_init();
-    seq_ctrl_api_init();
 
     pc_comm_register_module_callback(PCCOM_API_CTRL, comm_callbacks);
 }
@@ -129,6 +127,5 @@ void api_ctrl_update(core_output_t *outputs)
     }
 
     frame_ctrl_api_update(outputs);
-    seq_ctrl_api_update(outputs);
 }
 
