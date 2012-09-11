@@ -2,6 +2,7 @@
 OBJS += \
 asf-2.0.0/avr32_interrupt.o \
 asf-2.0.0/flashc.o \
+asf-2.0.0/usart.o \
 asf-2.0.0/gpio.o \
 asf-2.0.0/pm.o \
 asf-2.0.0/pm_conf_clocks.o \
