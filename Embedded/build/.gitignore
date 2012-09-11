@@ -2,3 +2,8 @@
 /openscb_firmware.elf
 /openscb_firmware.hex
 /openscb_firmware.map
+/asf-2.0.0
+/conf
+/controller
+/io
+/src
