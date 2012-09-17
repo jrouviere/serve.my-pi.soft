@@ -52,6 +52,7 @@ main.o \
 out_ctrl.o \
 pc_comm.o \
 pc_comm_usb.o \
+pc_comm_uart.o \
 rc_utils.o \
 sys_conf.o \
 system.o \

@@ -67,10 +67,27 @@
 
 //! @}
 
+/*! \name USART Definitions
+ */
+//! @{
+	
+#define RPI_USART               (&AVR32_USART2)
+
+#define RPI_USART_RX_PIN        AVR32_USART2_RXD_0_0_PIN
+#define RPI_USART_RX_FUNCTION   AVR32_USART2_RXD_0_0_FUNCTION
+#define RPI_USART_TX_PIN        AVR32_USART2_TXD_0_0_PIN
+#define RPI_USART_TX_FUNCTION   AVR32_USART2_TXD_0_0_FUNCTION
+#define RPI_USART_CLOCK_MASK    AVR32_USART2_CLK_PBA
+
+#define RPI_PDCA_CLOCK_HSB      AVR32_PDCA_CLK_HSB
+#define RPI_PDCA_CLOCK_PB       AVR32_PDCA_CLK_PBA
+
+//! @}
 
 /*! \name GPIO Definitions
  */
 //! @{
+
 
 #define SCB_PIN_LED_ERROR   AVR32_PIN_PB11
 #define PPM_INPUT_PIN       AVR32_PIN_PB10
@@ -111,20 +128,9 @@ static const uint8_t IO_BB_PINS[] = {
 //! @}
 
 
-/*! \name DMA Definitions
- */
-//! @{
-#define DMA_CHANNEL_SPI_RX     (0)
-#define DMA_CHANNEL_SPI_TX     (1)
-//! @}
-
 
 /**
  * \defgroup error_codes Error codes definitions
- * @{
- */
-/**
- * \defgroup error_codes_common General error codes definitions
  * @{
  */
 /** No error */
@@ -144,21 +150,6 @@ static const uint8_t IO_BB_PINS[] = {
 /** Parameter range error */
 #define ERROR_BAD_PARAMETER                             (-7)
 
-/**
- * \defgroup error_codes_spi_driver SPI Driver error codes definitions
- * @{
- */
-/** SPI driver not initialized properly error */
-#define ERROR_SPI_DRIVER_NOT_INITIALIZED    (-100)
-/** SPI driver operation ended with a timeout */
-#define ERROR_SPI_DRIVER_TIMEOUT            (-101)
-/** A DMA error was raised during the SPI transfer */
-#define ERROR_SPI_DRIVER_DMA                (-102)
-/** The flash device could not be unlocked */
-#define ERROR_FLASH_DRIVER_DEVICE_LOCKED    (-200)
-/** The flash device could not be unlocked */
-#define ERROR_FLASH_DRIVER_DEVICE_TIMEOUT   (-201)
-/** @} */
 /** @} */
 
 #endif  // _OPENSCB_BOARD_H_
