@@ -70,7 +70,8 @@
 /*! \name USART Definitions
  */
 //! @{
-	
+#ifdef SERVE_MYPI
+
 #define RPI_USART               (&AVR32_USART2)
 
 #define RPI_USART_RX_PIN        AVR32_USART2_RXD_0_0_PIN
@@ -82,6 +83,20 @@
 #define RPI_PDCA_CLOCK_HSB      AVR32_PDCA_CLK_HSB
 #define RPI_PDCA_CLOCK_PB       AVR32_PDCA_CLK_PBA
 
+#else
+
+#define RPI_USART               (&AVR32_USART1)
+
+#define RPI_USART_RX_PIN        AVR32_USART1_RXD_0_1_PIN
+#define RPI_USART_RX_FUNCTION   AVR32_USART1_RXD_0_1_FUNCTION
+#define RPI_USART_TX_PIN        AVR32_USART1_TXD_0_1_PIN
+#define RPI_USART_TX_FUNCTION   AVR32_USART1_TXD_0_1_FUNCTION
+#define RPI_USART_CLOCK_MASK    AVR32_USART1_CLK_PBA
+
+#define RPI_PDCA_CLOCK_HSB      AVR32_PDCA_CLK_HSB
+#define RPI_PDCA_CLOCK_PB       AVR32_PDCA_CLK_PBA
+
+#endif
 //! @}
 
 /*! \name GPIO Definitions
@@ -92,7 +107,39 @@
 #define SCB_PIN_LED_ERROR   AVR32_PIN_PB11
 #define PPM_INPUT_PIN       AVR32_PIN_PB10
 
+#ifdef SERVE_MYPI
 static const uint8_t IO_BB_PINS[] = {
+        AVR32_PIN_PA22,
+        AVR32_PIN_PA21,
+        AVR32_PIN_PA20,
+        AVR32_PIN_PA16,
+        AVR32_PIN_PA15,
+
+        AVR32_PIN_PA14,
+        AVR32_PIN_PA12,
+        AVR32_PIN_PA11,
+        AVR32_PIN_PA10,
+        AVR32_PIN_PA09,
+
+        AVR32_PIN_PB05,
+        AVR32_PIN_PB04,
+        AVR32_PIN_PB03,
+        AVR32_PIN_PB02,
+        AVR32_PIN_PA31,
+
+        AVR32_PIN_PA30,
+        AVR32_PIN_PA08,
+        AVR32_PIN_PA07,
+        AVR32_PIN_PA06,
+        AVR32_PIN_PA05,
+
+        AVR32_PIN_PA04,
+        AVR32_PIN_PA03,
+        AVR32_PIN_TMS,
+        AVR32_PIN_TDO,
+ };
+ #else
+ static const uint8_t IO_BB_PINS[] = {
         AVR32_PIN_PA22,
         AVR32_PIN_PA21,
         AVR32_PIN_PA20,
@@ -122,6 +169,7 @@ static const uint8_t IO_BB_PINS[] = {
         AVR32_PIN_PA26,
         AVR32_PIN_PA25,
  };
+ #endif
 
 #define IO_BB_MAX_NB    (sizeof(IO_BB_PINS)/sizeof(uint8_t))
 
