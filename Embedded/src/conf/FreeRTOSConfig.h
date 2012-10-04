@@ -133,6 +133,11 @@ to exclude the API function. */
 #define configTSK_COMM_STACK_SIZE             512
 #define configTSK_COMM_PRIORITY               (tskIDLE_PRIORITY + 5)
 
+/* Uart task definitions. */
+#define configTSK_UART_NAME                   ((const signed portCHAR *)"Uart")
+#define configTSK_UART_STACK_SIZE             512
+#define configTSK_UART_PRIORITY               (tskIDLE_PRIORITY + 5)
+                                
 /* Core task definitions. */
 #define configTSK_CORE_NAME                   ((const signed portCHAR *)"Core")
 #define configTSK_CORE_STACK_SIZE             2048
